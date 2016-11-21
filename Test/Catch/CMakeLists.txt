@@ -1,12 +1,12 @@
-cmake_minimum_required(VERSION 2.8.8)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8.8)
 
-if(POLICY CMP0048)
-  cmake_policy(SET CMP0048 OLD)
-endif()
+IF(POLICY CMP0048)
+  CMAKE_POLICY(SET CMP0048 OLD)
+ENDIF()
 
-project(catch_builder LANGUAGES CXX)
-include(ExternalProject)
-find_package(Git REQUIRED)
+PROJECT(catch_builder LANGUAGES CXX)
+INCLUDE(ExternalProject)
+FIND_PACKAGE(Git REQUIRED)
 
 ExternalProject_Add(
     catch
@@ -22,4 +22,4 @@ ExternalProject_Add(
 
 # Expose required variable (CATCH_INCLUDE_DIR) to parent scope
 ExternalProject_Get_Property(catch source_dir)
-set(CATCH_INCLUDE_DIR ${source_dir}/include CACHE INTERNAL "Path to include folder for Catch")
+SET(CATCH_INCLUDE_DIR ${source_dir}/include CACHE INTERNAL "Path to include folder for Catch")

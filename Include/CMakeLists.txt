@@ -1,16 +1,16 @@
 SET(ASH_HEADERS
-	ASHes/Ashes.hpp
-	ASHes/Engine.hpp
-	ASHes/Engine.inl
-	ASHes/EnumType.hpp
-	ASHes/Function.hpp
-	ASHes/Function.inl
-	ASHes/IRefType.hpp
-	ASHes/ObjectType.hpp
-	ASHes/ObjectType.inl
-	ASHes/TypeStore.hpp
-	ASHes/TypeStore.inl
+	ashes/Ashes.hpp
+	ashes/Engine.hpp
+	ashes/Engine.inl
+	ashes/EnumType.hpp
+	ashes/Function.hpp
+	ashes/Function.inl
+	ashes/IRefType.hpp
+	ashes/ObjectType.hpp
+	ashes/ObjectType.inl
+	ashes/TypeStore.hpp
+	ashes/TypeStore.inl
 )
 
-ADD_LIBRARY(ASHes STATIC ${ASH_HEADERS})
-set_target_properties(ASHes PROPERTIES LINKER_LANGUAGE CXX)
+ADD_LIBRARY(ashes STATIC ${ASH_HEADERS})
+SET_TARGET_PROPERTIES(ashes PROPERTIES LINKER_LANGUAGE CXX)
