@@ -17,12 +17,12 @@ public:
 		k_EngineTypeId = 0xDEADBEEF
 	};
 
-	static Engine* GetEngine(asIScriptEngine* eng)
+	static Engine* getASHEngine(asIScriptEngine* eng)
 	{
 		void* data = eng->GetUserData(k_EngineTypeId);
 		if (!data)
 			data = eng->SetUserData(new Engine(eng), k_EngineTypeId);
-		
+
 		return reinterpret_cast<Engine*>(data);
 	}
 
@@ -35,9 +35,7 @@ public:
 	}
 
 
-
-
-	asIScriptEngine* getEngine() const noexcept
+	asIScriptEngine* operator->() const noexcept
 	{
 		return mEnginePtr;
 	}
