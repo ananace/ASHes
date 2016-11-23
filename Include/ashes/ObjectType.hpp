@@ -1,6 +1,5 @@
 #pragma once
 
-#include "EnumType.hpp"
 #include "IRefType.hpp"
 
 #include <type_traits>

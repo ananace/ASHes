@@ -26,22 +26,22 @@ void defaultDestructor(T* obj)
 }
 
 template<typename T>
-ash::priv::ObjectType<T>::ObjectType(Engine& eng, const std::string& name, asDWORD flags)
-	: mEngineRef(eng)
+ash::priv::ObjectType<T>::ObjectType(ash::Engine& engine, const std::string& name, asDWORD flags)
+	: mEngineRef(engine)
 	, mName(name)
 	, mFlags(flags)
 {
-	auto* ptr = mEngineRef.getEngine();
+	auto& eng = *mEngineRef;
 
-	int r = ptr->RegisterObjectType(mName.c_str(), sizeof(T), flags);
+	int r = eng.RegisterObjectType(mName.c_str(), sizeof(T), flags);
 }
 
 template<typename T>
-ash::ValueType::ValueType(Engine& eng, const std::string& name, asDWORD extraFlags)
-	: ObjectType(eng, name, asOBJ_VALUE | extraFlags | asGetTypeTraits<T>())
+ash::ValueType<T>::ValueType(Engine& eng, const std::string& name, asDWORD extraFlags)
+	: ash::priv::ObjectType<T>(eng, name, asOBJ_VALUE | extraFlags | asGetTypeTraits<T>())
 {}
 
 template<typename T>
-ash::RefType::ValueType(Engine& eng, const std::string& name, asDWORD extraFlags)
-	: ObjectType(eng, name, asOBJ_REF | extraFlags)
+ash::RefType<T>::RefType(Engine& eng, const std::string& name, asDWORD extraFlags)
+	: ash::priv::ObjectType<T>(eng, name, asOBJ_REF | extraFlags)
 {}

@@ -1,49 +1,37 @@
 #pragma once
 
-#include "EnumType.hpp"
-#include "Function.hpp"
-#include "ObjectType.hpp"
+#include <string>
 
-#include <angelscript.h>
+class asIScriptEngine;
 
 namespace ash
 {
 
+template<typename T>
+class EnumType;
+template<typename T>
+class ObjectType;
+
 class Engine
 {
 public:
-	enum : asPWORD
+	enum
 	{
-		k_EngineTypeId = 0xDEADBEEF
+		ash_TypeId = 0xDEADBEEF
 	};
 
-	static Engine* getASHEngine(asIScriptEngine* eng)
-	{
-		void* data = eng->GetUserData(k_EngineTypeId);
-		if (!data)
-			data = eng->SetUserData(new Engine(eng), k_EngineTypeId);
-
-		return reinterpret_cast<Engine*>(data);
-	}
+	static Engine* getASHEngine(asIScriptEngine* eng);
 
 	// Function<> getGlobalFunction();
 
 	template<typename T>
-	EnumType<T> registerEnum(const std::string& name)
-	{
-		return EnumType<T>(*this, name);
-	}
+	EnumType<T> registerEnum(const std::string& name);
 
-
-	asIScriptEngine* operator->() const noexcept
-	{
-		return mEnginePtr;
-	}
+	asIScriptEngine& operator*() const noexcept;
+	asIScriptEngine* operator->() const noexcept;
 
 private:
-	Engine(asIScriptEngine* engine)
-		: mEnginePtr(engine)
-	{}
+	Engine(asIScriptEngine* engine);
 
 	asIScriptEngine* mEnginePtr;
 };
