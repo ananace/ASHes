@@ -6,22 +6,30 @@
 
 class asIScriptEngine;
 
-namespace ASH
+namespace ash
 {
 
-	class TypeStore
+class TypeStore
+{
+public:
+	struct TypeDef
 	{
-	public:
-		static TypeStore* getTypeStore(asIScriptEngine* eng);
+		TypeDef(const std::string& combinedName);
+		std::string getCombinedName() const;
 
-		template<typename Type>
-		std::string getDecl() const;
-		template<typename Type>
-		void setDecl(const std::string& name);
-		
-	private:
-		std::unordered_map<std::type_index, std::string> mDecls;
+		std::string Namespace, Typename;
 	};
+
+	static TypeStore* getASHTypeStore(asIScriptEngine* eng);
+
+	template<typename Type>
+	std::string getDecl() const;
+	template<typename Type>
+	void setDecl(const std::string& name);
+
+private:
+	std::unordered_map<std::type_index, TypeDef> mDecls;
+};
 
 }
 
