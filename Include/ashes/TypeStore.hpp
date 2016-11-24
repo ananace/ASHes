@@ -12,10 +12,15 @@ namespace ash
 class TypeStore
 {
 public:
+	enum
+	{
+		ash_TypeId = 0xBEEFBEEF
+	}
+
 	struct TypeDef
 	{
 		TypeDef(const std::string& combinedName);
-		std::string getCombinedName() const;
+		std::string getCombinedName() const noexcept;
 
 		std::string Namespace, Typename;
 	};
@@ -23,7 +28,7 @@ public:
 	static TypeStore* getASHTypeStore(asIScriptEngine* eng);
 
 	template<typename Type>
-	std::string getDecl() const;
+	std::string getDecl() const noexcept;
 	template<typename Type>
 	void setDecl(const std::string& name);
 
