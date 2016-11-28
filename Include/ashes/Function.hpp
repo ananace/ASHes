@@ -2,27 +2,30 @@
 
 class asIScriptContext;
 class asIScriptFunction;
-// class asIScriptWeakRef;
 
 namespace ash
 {
 
+template<typename T>
+class Function;
+
 template<typename Ret, typename... Args>
-class Function
+class Function<Ret(Args...)>
 {
 public:
 	Function(asIScriptFunction* func, void* object = nullptr);
 	Function(const Function& copy);
+	Function(Function&& move);
 	~Function();
 
 	Function& operator=(const Function& rhs);
+	Function& operator=(Function&& rhs);
 
 	Ret operator()(Args... args);
-	bool call(Args... args, asIScriptContext* ctx = nullptr);
+	bool call(asIScriptContext* ctx, Args... args);
 
 private:
 	asIScriptFunction* mFunc;
-	// asIScriptWeakRef* mFuncRef;
 	void* mObj;
 };
 

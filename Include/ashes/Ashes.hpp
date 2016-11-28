@@ -1,6 +1,6 @@
 #pragma once
 
-namespace ASH
+namespace ash
 {
 
 }

@@ -21,6 +21,11 @@ ash::TypeStore::TypeDef::TypeDef(const std::string& combinedName)
 	}
 }
 
+std::string ash::TypeStore::TypeDef::getCombinedName() const noexcept
+{
+	return Namespace + "::" + Typename;
+}
+
 
 ash::TypeStore* ash::TypeStore::getASHTypeStore(asIScriptEngine* eng)
 {
