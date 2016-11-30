@@ -18,14 +18,25 @@ class ObjectType
 public:
 	virtual ~ObjectType() noexcept = default;
 
-	void registerMethod();
+	template<typename C, typename F>
+	int registerMethod<C::F>(const std::string& methodName);
+	template<typename F>
+	int registerMethod<F>(const std::string& methodName);
 
-protected:
-	explicit ObjectType(Engine& eng, const std::string& name, asDWORD flags);
+	template<typename C, typename F>
+	int registerMethod<C::F>(const std::string& decl, asDWORD conv);
+	template<typename F>
+	int registerMethod<F>(const std::string& decl, asDWORD conv);
 
 	Engine& getEngine() const noexcept { return mEngineRef; }
 	const std::string& getName() const noexcept { return mName; }
 	asDWORD getFlags() const noexcept { return mFlags; }
+
+protected:
+	explicit ObjectType(Engine& eng, const std::string& name, asDWORD flags);
+
+	template<typename Functor>
+	virtual int registerMethodEx(Functor&& func, const std::string& method, asDWORD flags, const std::string& decl);
 
 private:
 	Engine& mEngineRef;
